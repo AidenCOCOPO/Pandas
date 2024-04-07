@@ -12,3 +12,45 @@ https://zhuanlan.zhihu.com/p/420247468
 
 SQL
 https://zhuanlan.zhihu.com/p/273568626
+
+from collections import deque
+
+class SingleQueue:
+    def __init__(self):
+        self.queue = deque()
+
+    def enqueue(self, value):
+        while self.queue and self.queue[-1] < value:
+            self.queue.pop()
+        self.queue.append(value)
+
+    def deque(self):
+        return self.queue.popleft()
+
+    def top(self):
+        return self.queue[0]
+
+class Solution:
+    def maxSlidingWindow(self, nums, k):
+        queue = SingleQueue()
+        result = []
+        for i in range(k):
+            queue.enqueue(nums[i])
+        print(queue)
+        result.append(queue[0])
+        for i in range(k, len(nums)):
+            if nums[i-k] == queue[0]:
+                queue.popleft()
+            queue.enqueue(nums[i])
+            result.append(queue[0])
+        return result
+
+s = Solution()
+# print(s.maxSlidingWindow(nums = [1,3,-1,-3,5,3,6,7], k = 3))
+
+queue = SingleQueue()
+queue.enqueue(2)
+queue.enqueue(3)
+queue.enqueue(4)
+queue.deque()
+print(queue.deque())
