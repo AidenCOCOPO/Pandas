@@ -12,35 +12,4 @@ https://zhuanlan.zhihu.com/p/420247468
 
 SQL
 https://zhuanlan.zhihu.com/p/273568626
-
-from collections import deque
-
-class Solution:
-    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        queue = SingleQueue()
-        result = []
-        for i in range(k):
-            queue.enqueue(nums[i])
-        print(queue)
-        result.append(queue.top())
-        for i in range(k, len(nums)):
-            queue.pop(nums[i-k])
-            queue.enqueue(nums[i])
-            result.append(queue.top())
-        return result
-
-    class SingleQueue:
-        def __init__(self):
-            self.queue = deque()
-
-        def enqueue(self, value):
-            while self.queue and self.queue[-1] < value:
-                self.queue.pop()
-            self.queue.append(value)
-
-        def pop(self, value):
-            if self.queue and value == self.queue[0]:
-                self.queue.popleft()
-
-        def top(self):
-            return self.queue[0]
+https://juejin.cn/post/6844903790571700231
