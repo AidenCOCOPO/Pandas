@@ -1,0 +1,23 @@
+L = len(height)
+        result = [0] * L
+        stack = [0]
+        area = 0
+        for i in range(1, L):
+            if height[i] < height[stack[-1]]:
+                stack.append(i)
+            else:
+                while stack and height[i] >= height[stack[-1]]:
+                    index = stack.pop()
+                    result[index] = i
+                stack.append(i)
+        point = 1
+        print(result)
+        while point < L:
+            if result[point]:
+                for i in range(point+1, result[point]):
+                    area += height[point] - height[i]
+                    print(f'point:{point},i:{i},area:{area}')
+                point = result[point]
+            else:
+                point += 1
+        return area
